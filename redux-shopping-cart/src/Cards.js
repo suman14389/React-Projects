@@ -3,10 +3,12 @@ import { data } from './Utils/getData';
 import { useDispatch } from 'react-redux';
 import { increaseItemQuantity, decreaseItemQuantity } from './Utils/cartSlice';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Card = ({item}) => {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   console.log(item.quantity);
 
   const handleAddToCart = (item) => {
@@ -27,16 +29,16 @@ const Card = ({item}) => {
       <p className='text-center font-bold'>Rs.{item.price}</p>
       <div className='flex gap-2 items-center justify-center'>
         {
-          quantity > 0 && <span className='cursor-pointer' onClick={() => handleDecreaseItemQuantity(item)}> - </span>  
+          quantity > 0 && <span className='cursor-pointer bg-blue-400 px-2 rounded-sm' onClick={() => handleDecreaseItemQuantity(item)}> - </span>  
         }
         {
-          quantity > 0 && <span className='px-4 py-2 bg-slate-100 rounded-lg'>{quantity}</span>
+          quantity > 0 && <span className='p-2 rounded-lg'> <span className='font-bold text-xl'> {quantity}</span> in <span className='text-blue-500 underline' onClick={() => navigate('/cart')}>cart</span></span>
         }
         {
-          !quantity && <button className='bg-red-200 rounded-lg p-2 cursor-pointer' onClick={() => handleAddToCart(item)}>Add to Cart</button>
+          !quantity && <button className='bg-red-200 px-4 py-2 rounded-lg cursor-pointer' onClick={() => handleAddToCart(item)}>Add to Cart</button>
         }
         {
-          quantity > 0 && <span className='cursor-pointer' onClick={() => handleAddToCart(item)}> + </span>
+          quantity > 0 && <span className='cursor-pointer bg-blue-400 px-2 rounded-sm' onClick={() => handleAddToCart(item)}> + </span>
         }
       </div>
     </div>
